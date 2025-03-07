@@ -49,7 +49,7 @@ public class Fraction
     }
 
     // 5. Упрощение дробей (находим НОД и делим на него)
-    private void Simplify()
+    private void Simplify()    
     {
         int gcd = GreatestCommonDivisor(Math.Abs(numerator), Math.Abs(denominator));
         numerator /= gcd;
@@ -63,10 +63,16 @@ public class Fraction
         }
     }
 
+    // т.к НОД = 2
+    // 130 / 2 = 65
+    // 116 / 2 = 58
+    // 65/58
+
+
     // Метод для нахождения наибольшего общего делителя (НОД)
     private static int GreatestCommonDivisor(int a, int b)
     {
-        while (b != 0)
+        while (b != 0) // пока b Не равно 0
         {
             int temp = b;
             b = a % b;
@@ -74,29 +80,37 @@ public class Fraction
         }
         return a;
     }
-
+// a = 130
+// b = 116
+// 130 % 116 ; отсаток 14 ; a = 116
+// 116 % 14 ; остаток 4 ; a = 14
+// 14 % 4 ; остаток 2 ; a = 4
+// 4 % 2 ; остаток 0 ; a = 2
+// НОД = 2
 
     // 1. Методы сложения, вычитания, умножения и деления дробей
 
-    public Fraction Add(Fraction other)
+    public Fraction Add(Fraction other) // сложение
     {
         int newNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
         int newDenominator = this.denominator * other.denominator;
         return new Fraction(newNumerator, newDenominator);
+        // Вычисляем числитель новой дроби по формуле a/b + c/d = (ad + bc) / bd
     }
 
-    public Fraction Subtract(Fraction other)
+    public Fraction Subtract(Fraction other) // Вычитание
     {
         int newNumerator = this.numerator * other.denominator - other.numerator * this.denominator;
         int newDenominator = this.denominator * other.denominator;
         return new Fraction(newNumerator, newDenominator);
+        // Вычисляем числитель новой дроби по формуле a/b - c/d = (ad + bc) / bd
     }
 
     public Fraction Multiply(Fraction other)
     {
-        int newNumerator = this.numerator * other.numerator;
-        int newDenominator = this.denominator * other.denominator;
-        return new Fraction(newNumerator, newDenominator);
+        int newNumerator = this.numerator * other.numerator;        //  (a/b * c/d = ac / bd)
+        int newDenominator = this.denominator * other.denominator;  //  (a/b * c/d = ac / bd)
+        return new Fraction(newNumerator, newDenominator);          // Возврат
     }
 
     public Fraction Divide(Fraction other)
@@ -104,16 +118,16 @@ public class Fraction
         // Проверка деления на ноль (для дробей - это когда числитель второй дроби равен 0)
         if (other.numerator == 0)
         {
-            throw new DivideByZeroException("Деление на ноль невозможно.");
+            throw new DivideByZeroException("Деление на ноль невозможно."); 
         }
 
-        int newNumerator = this.numerator * other.denominator;
-        int newDenominator = this.denominator * other.numerator;
+        int newNumerator = this.numerator * other.denominator;   // (a/b : c/d = ad / bc)
+        int newDenominator = this.denominator * other.numerator; // (a/b : c/d = ad / bc)
         return new Fraction(newNumerator, newDenominator);
     }
 
     // Метод для отображения дроби в формате "числитель/знаменатель"
-    public override string ToString()
+    public override string ToString() // представление в виде строки
     {
         return $"{numerator}/{denominator}";
     }
